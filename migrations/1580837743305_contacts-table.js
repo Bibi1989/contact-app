@@ -3,7 +3,7 @@
 exports.shorthands = undefined;
 
 exports.up = pgm => {
-    pgm.createTable('users', {
+    pgm.createTable('contacts', {
         id: {
             type: 'uuid',
             unique: true,
@@ -11,16 +11,27 @@ exports.up = pgm => {
             default: pgm.func('uuid_generate_v4()'),
             comment: "This is the id field"
         },
-        username: {
-            type: 'VARCHAR(100)',
+        owner_id: {
+            type: 'uuid',
+            nonNull: true
+        },
+        first_name: {
+            type: 'VARCHAR(1000)',
+            nonNull: true,
+        },
+        last_name: {
+            type: 'VARCHAR(1000)',
+            nonNull: true,
+        },
+        phone: {
+            type: 'VARCHAR(200)',
             nonNull: true,
         },
         email: {
-            type: 'VARCHAR(100)',
-            unique: true,
+            type: 'VARCHAR(1000)'
         },
-        password: {
-            type: 'VARCHAR(2000)',
+        company: {
+            type: 'VARCHAR(1000)',
             nonNull: true,
         },
         createdAt: {
@@ -32,7 +43,7 @@ exports.up = pgm => {
 };
 
 exports.down = pgm => {
-    pgm.dropTable('users')
+    pgm.dropTable('contacts')
 };
 
 

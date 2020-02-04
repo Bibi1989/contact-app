@@ -8,6 +8,8 @@ const http_errors_1 = __importDefault(require("http-errors"));
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var app = express_1.default();
 app.use(morgan_1.default('dev'));
 app.use(express_1.default.json());

@@ -3,6 +3,9 @@ import createError, { HttpError } from 'http-errors'
 import express, { Request, Response, NextFunction} from 'express';
 import cookieParser from 'cookie-parser';
 import logger from'morgan';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 var app = express();
 
