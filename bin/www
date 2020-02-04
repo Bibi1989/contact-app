@@ -7,6 +7,7 @@
 var app = require('../dist/app');
 var debug = require('debug')('contact-server:server');
 var http = require('http');
+const { authenticate } = require('../dist/model/contact-connect')
 
 /**
  * Get port from environment and store in Express.
@@ -14,6 +15,14 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
+authenticate().then(pgConnected).catch(pgError)
+const pgConnected = () => {
+  console.log(`connected to db`)
+}
+const pgError = () => {
+  console.log(`error connected to db`)
+}
 
 /**
  * Create HTTP server.
