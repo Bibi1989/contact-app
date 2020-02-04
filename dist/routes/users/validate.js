@@ -8,7 +8,18 @@ exports.validateRegister = (body) => {
     const schema = joi_1.default.object({
         username: joi_1.default.string().trim(),
         email: joi_1.default.string().trim().email(),
-        phone: joi_1.default.string().trim().min(10).required()
+        password: joi_1.default.string().trim().min(4).required()
+    });
+    const { error, value } = schema.validate(body, { abortEarly: false, stripUnknown: true });
+    return {
+        error,
+        value
+    };
+};
+exports.validateLogin = (body) => {
+    const schema = joi_1.default.object({
+        email: joi_1.default.string().trim().email(),
+        password: joi_1.default.string().trim().min(4).required()
     });
     const { error, value } = schema.validate(body, { abortEarly: false, stripUnknown: true });
     return {

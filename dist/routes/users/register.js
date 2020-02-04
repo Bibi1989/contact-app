@@ -14,12 +14,12 @@ router.post('/register', async (req, res) => {
     if (error) {
         return res.status(404).json({ error: error.details[0].message });
     }
-    const [existingUser] = await contact_connect_1.db.query(contact_connect_1.sql `SELECT email FROM users WHERE email = ${req.body.email}`);
+    const [existingUser] = await contact_connect_1.db.query(contact_connect_1.sql `SELECT email FROM users WHERE email = ${value.email}`);
     if (existingUser) {
-        return res.status(404).json({ msg: "Email exist" });
+        return res.status(404).json({ error: "Email exist" });
     }
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password } = value;
         const salt = await bcryptjs_1.default.genSalt(10);
         const hashedPassword = await bcryptjs_1.default.hash(password, salt);
         const [contact] = await contact_connect_1.db.query(contact_connect_1.sql `
