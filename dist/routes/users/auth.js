@@ -14,7 +14,7 @@ exports.Auth = (req, res, next) => {
         next();
     }
     catch (error) {
-        res.json({ error: error });
+        res.json({ errors: error });
     }
 };
 //# sourceMappingURL=auth.js.map

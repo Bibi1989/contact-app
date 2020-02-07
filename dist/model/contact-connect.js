@@ -11,8 +11,10 @@ const pg_1 = __importStar(require("@databases/pg"));
 exports.sql = pg_1.sql;
 const db = pg_1.default();
 exports.db = db;
-async function authenticate() {
+function authenticate() {
+    console.log('connected');
     return db.query(pg_1.sql `SELECT 1 + 1 AS result`);
+    console.log('connected');
 }
 exports.authenticate = authenticate;
 //# sourceMappingURL=contact-connect.js.map

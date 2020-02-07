@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcryptjs_1.default.hash(password, salt);
         const [contact] = await contact_connect_1.db.query(contact_connect_1.sql `
       INSERT INTO users (username, email, password) VALUES (${username}, ${email}, ${hashedPassword}) returning *`);
-        const token = jsonwebtoken_1.default.sign({ id: contact.id }, process.env.SECRET_KEY);
+        const token = jsonwebtoken_1.default.sign({ id: contact.id, username: contact.username }, process.env.SECRET_KEY);
         res.header("auth", token).status(200).json({ data: {
                 id: contact.id,
                 username: contact.username,
@@ -37,4 +37,5 @@ router.post('/register', async (req, res) => {
         res.status(404).json({ error: error });
     }
 });
+exports.default = router;
 //# sourceMappingURL=register.js.map

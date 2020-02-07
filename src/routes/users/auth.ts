@@ -10,6 +10,6 @@ export const Auth = (req: any, res: Response, next: NextFunction) => {
         req.user = decoded
         next()
     } catch (error) {
-        res.json({ error: error })
+        res.json({ errors: error })
     }
 }

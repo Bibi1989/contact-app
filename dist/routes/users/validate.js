@@ -27,4 +27,18 @@ exports.validateLogin = (body) => {
         value
     };
 };
+exports.validatePost = (body) => {
+    const schema = joi_1.default.object({
+        first_name: joi_1.default.string().trim().required(),
+        last_name: joi_1.default.string().trim(),
+        email: joi_1.default.string().trim().email(),
+        phone: joi_1.default.string().trim().min(4).required(),
+        company: joi_1.default.string().trim()
+    });
+    const { error, value } = schema.validate(body, { abortEarly: false, stripUnknown: true });
+    return {
+        error,
+        value
+    };
+};
 //# sourceMappingURL=validate.js.map

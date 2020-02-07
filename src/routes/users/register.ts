@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, salt)
       const [contact] = await db.query(sql`
       INSERT INTO users (username, email, password) VALUES (${username}, ${email}, ${hashedPassword}) returning *`)
-      const token = jwt.sign({ id: contact.id }, process.env.SECRET_KEY)
+      const token = jwt.sign({ id: contact.id, username: contact.username }, process.env.SECRET_KEY)
       res.header("auth", token).status(200).json({ data: {
           id: contact.id,
           username: contact.username,
@@ -32,3 +32,5 @@ router.post('/register', async (req, res) => {
       res.status(404).json({ error: error })
     }
 })
+
+export default router

@@ -29,3 +29,20 @@ export const validateLogin = (body: ContactObject) => {
         value
     }
 }
+
+export const validatePost = (body: ContactObject) => {
+    const schema = joi.object({
+        first_name: joi.string().trim().required(),
+        last_name: joi.string().trim(),
+        email: joi.string().trim().email(),
+        phone: joi.string().trim().min(4).required(),
+        company: joi.string().trim()
+    })
+
+    const { error, value } = schema.validate(body, {abortEarly: false, stripUnknown: true })
+    
+    return {
+        error,
+        value
+    }
+}

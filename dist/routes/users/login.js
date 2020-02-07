@@ -14,16 +14,18 @@ router.post('/login', async (req, res) => {
     if (error) {
         return res.status(404).json({ error: error.details[0].message });
     }
-    const [existingUser] = await contact_connect_1.db.query(contact_connect_1.sql `SELECT email FROM users WHERE email = ${value.email}`);
+    const [existingUser] = await contact_connect_1.db.query(contact_connect_1.sql `SELECT * FROM users WHERE email = ${req.body.email}`);
+    console.log(existingUser);
     if (!existingUser) {
         return res.status(404).json({ error: "Wrong email or you have not register" });
     }
     try {
-        const { password } = value;
+        const { password } = req.body;
         const validPassword = await bcryptjs_1.default.compare(password, existingUser.password);
         if (!validPassword) {
             return res.status(404).json({ data: "Invalid password" });
         }
+        console.log('user');
         const token = jsonwebtoken_1.default.sign({ id: existingUser.id }, process.env.SECRET_KEY);
         res.header("auth", token).status(200).json({ data: {
                 id: existingUser.id,
@@ -34,7 +36,8 @@ router.post('/login', async (req, res) => {
         });
     }
     catch (error) {
-        res.status(404).json({ error: error });
+        return res.status(404).json({ error: error });
     }
 });
+exports.default = router;
 //# sourceMappingURL=login.js.map
